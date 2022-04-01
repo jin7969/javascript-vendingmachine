@@ -2,23 +2,143 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/js/Controller.js":
-/*!******************************!*\
-  !*** ./src/js/Controller.js ***!
-  \******************************/
+/***/ "./src/js/constants/constants.js":
+/*!***************************************!*\
+  !*** ./src/js/constants/constants.js ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Controller)
+/* harmony export */   "SECTION_CONTAINER": () => (/* binding */ SECTION_CONTAINER),
+/* harmony export */   "PRODUCT": () => (/* binding */ PRODUCT),
+/* harmony export */   "COIN": () => (/* binding */ COIN),
+/* harmony export */   "CONFIRM_DELETE_MESSAGE": () => (/* binding */ CONFIRM_DELETE_MESSAGE),
+/* harmony export */   "ERROR_MESSAGE": () => (/* binding */ ERROR_MESSAGE)
 /* harmony export */ });
-/* harmony import */ var _constants_constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants/constants.js */ "./src/js/constants/constants.js");
-/* harmony import */ var _utils_event_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/event.js */ "./src/js/utils/event.js");
-/* harmony import */ var _views_menuCategoryView_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/menuCategoryView.js */ "./src/js/views/menuCategoryView.js");
-/* harmony import */ var _models_Coin_ts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./models/Coin.ts */ "./src/js/models/Coin.ts");
-/* harmony import */ var _models_ProductManger_ts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./models/ProductManger.ts */ "./src/js/models/ProductManger.ts");
-/* harmony import */ var _views_ChargeView_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/ChargeView.js */ "./src/js/views/ChargeView.js");
-/* harmony import */ var _views_ProductManageView_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/ProductManageView.js */ "./src/js/views/ProductManageView.js");
+/* harmony import */ var _utils_dom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/dom.js */ "./src/js/utils/dom.js");
+
+var SECTION_CONTAINER = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_0__.$)('#section-container');
+var PRODUCT = {
+  MAX_LENGTH: 10,
+  PRICE_UNIT: 10,
+  PRICE_RANGE: {
+    MIN: 100,
+    MAX: 10000
+  },
+  QUANTITY_RANGE: {
+    MIN: 1,
+    MAX: 20
+  }
+};
+var COIN = {
+  UNIT_LIST: [10, 50, 100, 500],
+  MIN_UNIT: 10,
+  MAX_AMOUNT: 100000
+};
+var CONFIRM_DELETE_MESSAGE = '상품을 삭제하시겠습니까?';
+var ERROR_MESSAGE = {
+  EMPTY_NAME: '상품명을 입력해 주세요.',
+  EMPTY_PRICE: '상품가격을 입력해 주세요.',
+  EMPTY_QUANTITY: '상품수량을 입력해 주세요.',
+  OVER_MAX_LENGTH: '상품명은 10글자 이하로 입력해 주세요.',
+  NOT_DIVIDE_NUMBER: '10원 단위로 입력해 주세요.',
+  OUT_OF_PRICE_RANGE: '상품 가격은 100원 이상 10000원 이하로 입력해 주세요.',
+  OUT_OF_QUANTITY_RANGE: '상품 수량은 1개 이상 20개 이하로 입력해 주세요.',
+  DUPLICATE_PRODUCT: '중복된 상품 입니다. 다른 상품을 입력해 주세요.',
+  OVER_MAX_AMOUNT: '최대 보유 금액은 100,000원 을 넘을 수 없습니다.'
+};
+
+/***/ }),
+
+/***/ "./src/js/controller/Charge.js":
+/*!*************************************!*\
+  !*** ./src/js/controller/Charge.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Charge)
+/* harmony export */ });
+/* harmony import */ var _models_Coin_ts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/Coin.ts */ "./src/js/models/Coin.ts");
+/* harmony import */ var _utils_event_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/event.js */ "./src/js/utils/event.js");
+/* harmony import */ var _constants_constants_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants/constants.js */ "./src/js/constants/constants.js");
+/* harmony import */ var _views_ChargeView_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../views/ChargeView.js */ "./src/js/views/ChargeView.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
+
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
+
+
+
+
+
+var _handleChargeCoin = /*#__PURE__*/new WeakSet();
+
+var Charge = /*#__PURE__*/function () {
+  function Charge() {
+    _classCallCheck(this, Charge);
+
+    _classPrivateMethodInitSpec(this, _handleChargeCoin);
+
+    this.coin = new _models_Coin_ts__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    this.chargeView = new _views_ChargeView_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
+    (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_1__.on)(_constants_constants_js__WEBPACK_IMPORTED_MODULE_2__.SECTION_CONTAINER, '@charge', _classPrivateMethodGet(this, _handleChargeCoin, _handleChargeCoin2).bind(this));
+  }
+
+  _createClass(Charge, [{
+    key: "initCharge",
+    value: function initCharge() {
+      this.chargeView.initChargeDOM();
+      this.chargeView.renderCurrentAmount(this.coin.getAmount());
+      this.chargeView.renderHaveCoins(this.coin.getCoins());
+    }
+  }]);
+
+  return Charge;
+}();
+
+function _handleChargeCoin2(e) {
+  try {
+    var amount = e.detail.amount;
+    this.coin.setAmount(amount);
+    this.chargeView.renderCurrentAmount(this.coin.getAmount());
+    this.chargeView.resetChargeInput();
+    this.chargeView.renderHaveCoins(this.coin.getCoins());
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+
+
+/***/ }),
+
+/***/ "./src/js/controller/ProductManage.js":
+/*!********************************************!*\
+  !*** ./src/js/controller/ProductManage.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ProductManage)
+/* harmony export */ });
+/* harmony import */ var _constants_constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants/constants.js */ "./src/js/constants/constants.js");
+/* harmony import */ var _utils_event_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/event.js */ "./src/js/utils/event.js");
+/* harmony import */ var _views_menuCategoryView_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../views/menuCategoryView.js */ "./src/js/views/menuCategoryView.js");
+/* harmony import */ var _Charge_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Charge.js */ "./src/js/controller/Charge.js");
+/* harmony import */ var _models_ProductManger_ts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../models/ProductManger.ts */ "./src/js/models/ProductManger.ts");
+/* harmony import */ var _views_ProductManageView_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../views/ProductManageView.js */ "./src/js/views/ProductManageView.js");
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -38,7 +158,6 @@ function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(
 
 
 
-
 var _renderSavedData = /*#__PURE__*/new WeakSet();
 
 var _handleProductInfo = /*#__PURE__*/new WeakSet();
@@ -47,12 +166,8 @@ var _modifySavedData = /*#__PURE__*/new WeakSet();
 
 var _deleteSavedData = /*#__PURE__*/new WeakSet();
 
-var _handleChargeCoin = /*#__PURE__*/new WeakSet();
-
-var Controller = /*#__PURE__*/_createClass(function Controller() {
-  _classCallCheck(this, Controller);
-
-  _classPrivateMethodInitSpec(this, _handleChargeCoin);
+var ProductManage = /*#__PURE__*/_createClass(function ProductManage() {
+  _classCallCheck(this, ProductManage);
 
   _classPrivateMethodInitSpec(this, _deleteSavedData);
 
@@ -63,35 +178,35 @@ var Controller = /*#__PURE__*/_createClass(function Controller() {
   _classPrivateMethodInitSpec(this, _renderSavedData);
 
   this.productManager = new _models_ProductManger_ts__WEBPACK_IMPORTED_MODULE_4__["default"]();
-  this.productManageView = new _views_ProductManageView_js__WEBPACK_IMPORTED_MODULE_6__["default"]();
-  this.chargeView = new _views_ChargeView_js__WEBPACK_IMPORTED_MODULE_5__["default"]();
-  this.coin = new _models_Coin_ts__WEBPACK_IMPORTED_MODULE_3__["default"]();
+  this.productManageView = new _views_ProductManageView_js__WEBPACK_IMPORTED_MODULE_5__["default"]();
+  this.charge = new _Charge_js__WEBPACK_IMPORTED_MODULE_3__["default"]();
   (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_1__.on)(_constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.SECTION_CONTAINER, '@render', _classPrivateMethodGet(this, _renderSavedData, _renderSavedData2).bind(this));
   (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_1__.on)(_constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.SECTION_CONTAINER, '@manage', _classPrivateMethodGet(this, _handleProductInfo, _handleProductInfo2).bind(this));
   (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_1__.on)(_constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.SECTION_CONTAINER, '@modify', _classPrivateMethodGet(this, _modifySavedData, _modifySavedData2).bind(this));
   (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_1__.on)(_constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.SECTION_CONTAINER, '@delete', _classPrivateMethodGet(this, _deleteSavedData, _deleteSavedData2).bind(this));
-  (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_1__.on)(_constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.SECTION_CONTAINER, '@charge', _classPrivateMethodGet(this, _handleChargeCoin, _handleChargeCoin2).bind(this));
 });
 
 function _renderSavedData2(e) {
   var hash = e.detail.hash;
   (0,_views_menuCategoryView_js__WEBPACK_IMPORTED_MODULE_2__.initHashContents)(hash);
 
-  if (hash === '#!manage') {
-    this.productManageView.initManageDOM();
-    var savedProductList = this.productManager.getProducts();
+  switch (hash) {
+    case '#!manage':
+      this.productManageView.initManageDOM(); // eslint-disable-next-line no-case-declarations
 
-    if (savedProductList.length !== 0) {
-      this.productManageView.render(savedProductList);
-    }
+      var savedProductList = this.productManager.getProducts();
 
-    return;
-  }
+      if (savedProductList.length !== 0) {
+        this.productManageView.render(savedProductList);
+      }
 
-  if (hash === '#!charge') {
-    this.chargeView.initChargeDOM();
-    this.chargeView.renderCurrentAmount(this.coin.getAmount());
-    this.chargeView.renderHaveCoins(this.coin.getCoins());
+      break;
+
+    case '#!charge':
+      this.charge.initCharge();
+      break;
+
+    default:
   }
 }
 
@@ -123,68 +238,7 @@ function _deleteSavedData2(e) {
   this.productManager.deleteProduct(index);
 }
 
-function _handleChargeCoin2(e) {
-  try {
-    var amount = e.detail.amount;
-    this.coin.setAmount(amount);
-    this.chargeView.renderCurrentAmount(this.coin.getAmount());
-    this.chargeView.resetChargeInput();
-    this.chargeView.renderHaveCoins(this.coin.getCoins());
-  } catch (error) {
-    alert(error.message);
-  }
-}
 
-
-
-/***/ }),
-
-/***/ "./src/js/constants/constants.js":
-/*!***************************************!*\
-  !*** ./src/js/constants/constants.js ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SECTION_CONTAINER": () => (/* binding */ SECTION_CONTAINER),
-/* harmony export */   "PRODUCT": () => (/* binding */ PRODUCT),
-/* harmony export */   "COIN": () => (/* binding */ COIN),
-/* harmony export */   "CONFIRM_DELETE_MESSAGE": () => (/* binding */ CONFIRM_DELETE_MESSAGE),
-/* harmony export */   "ERROR_MESSAGE": () => (/* binding */ ERROR_MESSAGE)
-/* harmony export */ });
-/* harmony import */ var _utils_dom_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/dom.js */ "./src/js/utils/dom.js");
-
-var SECTION_CONTAINER = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_0__.$)('#section-container');
-var PRODUCT = {
-  MAX_LENGTH: 10,
-  PRICE_UNIT: 10,
-  PRICE_RANGE: {
-    MIN: 100,
-    MAX: 10000
-  },
-  QUANTITY_RANGE: {
-    MIN: 1,
-    MAX: 20
-  }
-};
-var COIN = {
-  UNIT_LIST: [500, 100, 50, 10],
-  MIN_UNIT: 10,
-  MAX_AMOUNT: 100000
-};
-var CONFIRM_DELETE_MESSAGE = '상품을 삭제하시겠습니까?';
-var ERROR_MESSAGE = {
-  EMPTY_NAME: '상품명을 입력해 주세요.',
-  EMPTY_PRICE: '상품가격을 입력해 주세요.',
-  EMPTY_QUANTITY: '상품수량을 입력해 주세요.',
-  OVER_MAX_LENGTH: '상품명은 10글자 이하로 입력해 주세요.',
-  NOT_DIVIDE_NUMBER: '10원 단위로 입력해 주세요.',
-  OUT_OF_PRICE_RANGE: '상품 가격은 100원 이상 10000원 이하로 입력해 주세요.',
-  OUT_OF_QUANTITY_RANGE: '상품 수량은 1개 이상 20개 이하로 입력해 주세요.',
-  DUPLICATE_PRODUCT: '중복된 상품 입니다. 다른 상품을 입력해 주세요.',
-  OVER_MAX_AMOUNT: '최대 보유 금액은 100,000원 을 넘을 수 없습니다.'
-};
 
 /***/ }),
 
@@ -225,15 +279,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "tableInputTemplate": () => (/* binding */ tableInputTemplate)
 /* harmony export */ });
 var CATEGORY_TEMPLATE = {
-  MANAGE: "\n    <h2 hidden>\uC0C1\uD488 \uAD00\uB9AC</h2>\n    <form id=\"product-add-form\">\n      <label>\uCD94\uAC00\uD560 \uC0C1\uD488 \uC815\uBCF4\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694.</label>\n      <div class=\"form-input product-manage-input-width\">\n        <input\n          id=\"product-name-input\"\n          type=\"text\"\n          placeholder=\"\uC0C1\uD488\uBA85\"\n          maxlength=\"10\"\n          required\n          aria-labelledby=\"product-information\"\n        />\n        <input\n          id=\"product-price-input\"\n          type=\"number\"\n          placeholder=\"\uAC00\uACA9\"\n          min=\"100\"\n          max=\"10000\"\n          required\n          aria-labelledby=\"product-information\"\n        />\n        <input\n          id=\"product-quantity-input\"\n          type=\"number\"\n          placeholder=\"\uC218\uB7C9\"\n          min=\"1\"\n          max=\"20\"\n          required\n          aria-labelledby=\"product-information\"\n        />\n        <button class=\"hover-button\">\uCD94\uAC00</button>\n      </div>\n    </form>\n    <table class=\"table\">\n      <caption class=\"caption\">\n        \uC0C1\uD488 \uD604\uD669\n      </caption>\n      <colgroup>\n        <col>\n        <col width=\"24%\">\n        <col width=\"24%\">\n        <col width=\"24%\">\n      </colgroup>\n      <thead></thead>\n        <tr>\n          <th>\uC0C1\uD488\uBA85</th>\n          <th>\uAC00\uACA9</th>\n          <th>\uC218\uB7C9</th>\n        </tr>\n      </thead>\n      <tbody id=\"product-tbody\"></tbody>\n    </table>\n  ",
-  CHARGE: "\n    <h2 hidden>\uC794\uB3C8 \uCDA9\uC804</h2>\n    <form id=\"charge-form\" class=\"form\">\n      <label for=\"charge-amount\">\uC790\uD310\uAE30\uAC00 \uBCF4\uC720\uD560 \uAE08\uC561\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694.</label>\n      <div class=\"form-input\">\n        <input\n          id=\"charge-amount-input\"\n          class=\"input-width\"\n          type=\"number\"\n          placeholder=\"\uAE08\uC561\"\n          min=\"10\"\n          max=\"100000\"\n          required\n        />\n        <button class=\"hover-button\">\uAD6C\uC785</button>\n      </div>\n      <p class=\"current-amount\"></p>\n    </form>\n    <table class=\"table\">\n      <caption class=\"caption\">\n        \uC790\uD310\uAE30\uAC00 \uBCF4\uC720\uD55C \uB3D9\uC804\n      </caption>\n      <thead>\n        <tr>\n          <th>\uB3D9\uC804</th>\n          <th>\uAC1C\uC218</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr></tr>\n          <td>500\uC6D0</td>\n          <td id=\"five-hundred-coin\"></td>\n        </tr>\n        <tr>\n          <td>100\uC6D0</td>\n          <td id=\"one-hundred-coin\"></td>\n        </tr>\n        <tr>\n          <td>50\uC6D0</td>\n          <td id=\"fifty-coin\"></td>\n        </tr>\n        <tr>\n          <td>10\uC6D0</td>\n          <td id=\"ten-coin\"></td>\n        </tr>\n      </tbody>\n    </table>\n  ",
-  PURCHASE: "\n    <h2 hidden>\uC0C1\uD488 \uAD6C\uB9E4</h2>\n    <form class=\"purchase-form form\">\n      <label for=\"product-purchased\">\uC0C1\uD488\uC744 \uAD6C\uB9E4\uD560 \uAE08\uC561\uC744 \uD22C\uC785\uD574\uC8FC\uC138\uC694.</label>\n      <div class=\"form-input\">\n        <input id=\"product-purchased\" type=\"number\" class=\"input-width\" placeholder=\"\uAE08\uC561\" />\n        <button class=\"hover-button\">\uD22C\uC785</button>\n      </div>\n      <p class=\"current-amount\">\uD22C\uC785\uD55C \uAE08\uC561: 3000\uC6D0</p>\n    </form>\n    <table class=\"table\">\n      <caption class=\"caption\">\n        \uAD6C\uB9E4 \uAC00\uB2A5 \uC0C1\uD488 \uD604\uD669\n      </caption>\n      <thead>\n        <tr>\n          <th>\uC0C1\uD488\uBA85</th>\n          <th>\uAC00\uACA9</th>\n          <th>\uC218\uB7C9</th>\n          <th>\uAD6C\uB9E4</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td>\uCF5C\uB77C</td>\n          <td>1000</td>\n          <td>10</td>\n          <td><button type=\"button\">\uAD6C\uB9E4</button></td>\n        </tr>\n      </tbody>\n    </table>\n    <table class=\"table\">\n      <caption class=\"caption\">\n        \uC794\uB3C8 \uBC18\uD658\n      </caption>\n      <thead>\n        <tr>\n          <th>\uB3D9\uC804</th>\n          <th>\uAC1C\uC218</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td>500\uC6D0</td>\n          <td>5\uAC1C</td>\n        </tr>\n      </tbody>\n    </table>\n    <button type=\"button\" class=\"button change-button\">\uBC18\uD658\uD558\uAE30</button>\n  "
+  MANAGE: "\n    <h2 hidden>\uC0C1\uD488 \uAD00\uB9AC</h2>\n    <form id=\"product-add-form\">\n      <label>\uCD94\uAC00\uD560 \uC0C1\uD488 \uC815\uBCF4\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694.</label>\n      <div class=\"form-input product-manage-input-width\">\n        <input\n          id=\"product-name-input\"\n          type=\"text\"\n          placeholder=\"\uC0C1\uD488\uBA85\"\n          maxlength=\"10\"\n          required\n          aria-labelledby=\"product-information\"\n        />\n        <input\n          id=\"product-price-input\"\n          type=\"number\"\n          placeholder=\"\uAC00\uACA9\"\n          min=\"100\"\n          max=\"10000\"\n          step=\"10\"\n          required\n          aria-labelledby=\"product-information\"\n        />\n        <input\n          id=\"product-quantity-input\"\n          type=\"number\"\n          placeholder=\"\uC218\uB7C9\"\n          min=\"1\"\n          max=\"20\"\n          required\n          aria-labelledby=\"product-information\"\n        />\n        <button class=\"hover-button\">\uCD94\uAC00</button>\n      </div>\n    </form>\n    <table class=\"table\">\n      <caption class=\"caption\">\n        \uC0C1\uD488 \uD604\uD669\n      </caption>\n      <colgroup>\n        <col>\n        <col width=\"24%\">\n        <col width=\"24%\">\n        <col width=\"24%\">\n      </colgroup>\n      <thead></thead>\n        <tr>\n          <th>\uC0C1\uD488\uBA85</th>\n          <th>\uAC00\uACA9</th>\n          <th>\uC218\uB7C9</th>\n        </tr>\n      </thead>\n      <tbody id=\"product-tbody\"></tbody>\n    </table>\n  ",
+  CHARGE: "\n    <h2 hidden>\uC794\uB3C8 \uCDA9\uC804</h2>\n    <form id=\"charge-form\" class=\"form\">\n      <label for=\"charge-amount\">\uC790\uD310\uAE30\uAC00 \uBCF4\uC720\uD560 \uAE08\uC561\uC744 \uC785\uB825\uD574\uC8FC\uC138\uC694.</label>\n      <div class=\"form-input\">\n        <input\n          id=\"charge-amount-input\"\n          class=\"input-width\"\n          type=\"number\"\n          placeholder=\"\uAE08\uC561\"\n          min=\"10\"\n          max=\"100000\"\n          step=\"10\"\n          required\n        />\n        <button class=\"hover-button\">\uAD6C\uC785</button>\n      </div>\n      <p class=\"current-amount\"></p>\n    </form>\n    <table class=\"table\">\n      <caption class=\"caption\">\n        \uC790\uD310\uAE30\uAC00 \uBCF4\uC720\uD55C \uB3D9\uC804\n      </caption>\n      <thead>\n        <tr>\n          <th>\uB3D9\uC804</th>\n          <th>\uAC1C\uC218</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr></tr>\n          <td>500\uC6D0</td>\n          <td id=\"five-hundred-coin\"></td>\n        </tr>\n        <tr>\n          <td>100\uC6D0</td>\n          <td id=\"one-hundred-coin\"></td>\n        </tr>\n        <tr>\n          <td>50\uC6D0</td>\n          <td id=\"fifty-coin\"></td>\n        </tr>\n        <tr>\n          <td>10\uC6D0</td>\n          <td id=\"ten-coin\"></td>\n        </tr>\n      </tbody>\n    </table>\n  ",
+  PURCHASE: "\n    <h2 hidden>\uC0C1\uD488 \uAD6C\uB9E4</h2>\n    <form class=\"purchase-form form\">\n      <label for=\"product-purchased\">\uC0C1\uD488\uC744 \uAD6C\uB9E4\uD560 \uAE08\uC561\uC744 \uD22C\uC785\uD574\uC8FC\uC138\uC694.</label>\n      <div class=\"form-input\">\n        <input id=\"product-purchased\" type=\"number\" step=\"10\" class=\"input-width\" placeholder=\"\uAE08\uC561\" />\n        <button class=\"hover-button\">\uD22C\uC785</button>\n      </div>\n      <p class=\"current-amount\">\uD22C\uC785\uD55C \uAE08\uC561: 3000\uC6D0</p>\n    </form>\n    <table class=\"table\">\n      <caption class=\"caption\">\n        \uAD6C\uB9E4 \uAC00\uB2A5 \uC0C1\uD488 \uD604\uD669\n      </caption>\n      <thead>\n        <tr>\n          <th>\uC0C1\uD488\uBA85</th>\n          <th>\uAC00\uACA9</th>\n          <th>\uC218\uB7C9</th>\n          <th>\uAD6C\uB9E4</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td>\uCF5C\uB77C</td>\n          <td>1000</td>\n          <td>10</td>\n          <td><button type=\"button\">\uAD6C\uB9E4</button></td>\n        </tr>\n      </tbody>\n    </table>\n    <table class=\"table\">\n      <caption class=\"caption\">\n        \uC794\uB3C8 \uBC18\uD658\n      </caption>\n      <thead>\n        <tr>\n          <th>\uB3D9\uC804</th>\n          <th>\uAC1C\uC218</th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr>\n          <td>500\uC6D0</td>\n          <td>5\uAC1C</td>\n        </tr>\n      </tbody>\n    </table>\n    <button type=\"button\" class=\"button change-button\">\uBC18\uD658\uD558\uAE30</button>\n  "
 };
-var tableTemplate = function tableTemplate(product) {
-  return "\n    <tr>\n      <td>".concat(product.name, "</td>\n      <td>").concat(product.price, "</td>\n      <td>").concat(product.quantity, "</td>\n      <td><button class=\"modify-button\" type=\"button\">\uC218\uC815</button> <button class=\"delete-button\" type=\"button\">\uC0AD\uC81C</button></td>\n    </tr>\n  ");
+var tableTemplate = function tableTemplate(_ref) {
+  var name = _ref.name,
+      price = _ref.price,
+      quantity = _ref.quantity;
+  return "\n    <tr>\n      <td>".concat(name, "</td>\n      <td>").concat(price, "</td>\n      <td>").concat(quantity, "</td>\n      <td>\n        <button class=\"modify-button\" type=\"button\" data-name=").concat(name, " data-price=").concat(price, " data-quantity=").concat(quantity, ">\uC218\uC815</button>\n        <button class=\"delete-button\" type=\"button\">\uC0AD\uC81C</button>\n      </td>\n    </tr>\n  ");
 };
-var tableInputTemplate = function tableInputTemplate(product) {
-  return "\n    <td><input type=\"text\" class=\"modify-input\" placeholder=\"\uC0C1\uD488\uBA85\" value=".concat(product.name, " /></td>\n    <td><input type=\"number\" class=\"modify-input\" placeholder=\"\uAC00\uACA9\" value=").concat(product.price, " /></td>\n    <td><input type=\"number\" class=\"modify-input\" placeholder=\"\uC218\uB7C9\" value=").concat(product.quantity, " /></td>\n    <td><button class=\"confirm-button\" type=\"button\">\uD655\uC778</button></td>\n  ");
+var tableInputTemplate = function tableInputTemplate(_ref2) {
+  var name = _ref2.name,
+      price = _ref2.price,
+      quantity = _ref2.quantity;
+  return "\n    <td><input id=\"modify-name\" type=\"text\" class=\"modify-input\" placeholder=\"\uC0C1\uD488\uBA85\" value=".concat(name, " /></td>\n    <td><input id=\"modify-price\" type=\"number\" min=\"100\" max=\"10000\" step=\"10\" class=\"modify-input\" placeholder=\"\uAC00\uACA9\" value=").concat(price, " /></td>\n    <td><input id=\"modify-quantity\" type=\"number\" min=\"1\" max=\"20\" class=\"modify-input\" placeholder=\"\uC218\uB7C9\" value=").concat(quantity, " /></td>\n    <td><button class=\"confirm-button\" type=\"button\">\uD655\uC778</button></td>\n  ");
 };
 
 /***/ }),
@@ -536,11 +596,6 @@ var ProductManageView = /*#__PURE__*/function () {
   }
 
   _createClass(ProductManageView, [{
-    key: "renderModifiedProduct",
-    value: function renderModifiedProduct(index, product) {
-      (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_1__.replaceElement)(this.$productTbody.children[index], (0,_templates_templates_js__WEBPACK_IMPORTED_MODULE_3__.tableTemplate)(product));
-    }
-  }, {
     key: "initManageDOM",
     value: function initManageDOM() {
       this.$productNameInput = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_1__.$)('#product-name-input');
@@ -549,6 +604,11 @@ var ProductManageView = /*#__PURE__*/function () {
       this.$productTbody = (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_1__.$)('#product-tbody');
 
       _classPrivateMethodGet(this, _bindMangeEvent, _bindMangeEvent2).call(this);
+    }
+  }, {
+    key: "renderModifiedProduct",
+    value: function renderModifiedProduct(index, product) {
+      (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_1__.replaceElement)(this.$productTbody.children[index], (0,_templates_templates_js__WEBPACK_IMPORTED_MODULE_3__.tableTemplate)(product));
     }
   }, {
     key: "render",
@@ -580,24 +640,27 @@ function _bindMangeEvent2() {
   var _this2 = this;
 
   this.$productTbody.addEventListener('click', function (e) {
-    var target = e.target;
+    var className = e.target.className;
 
-    if (target.classList.contains('modify-button')) {
-      _classPrivateMethodGet(_this2, _modifyProductInfo, _modifyProductInfo2).call(_this2, target.closest('tr'));
+    switch (className) {
+      case 'modify-button':
+        _classPrivateMethodGet(_this2, _modifyProductInfo, _modifyProductInfo2).call(_this2, e.target);
 
-      return;
-    }
+        break;
 
-    if (target.classList.contains('confirm-button')) {
-      _classPrivateMethodGet(_this2, _confirmProductInfo, _confirmProductInfo2).call(_this2, target.closest('tr'));
+      case 'confirm-button':
+        _classPrivateMethodGet(_this2, _confirmProductInfo, _confirmProductInfo2).call(_this2, e.target.closest('tr'));
 
-      return;
-    }
+        break;
 
-    if (target.classList.contains('delete-button')) {
-      if (window.confirm(_constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.CONFIRM_DELETE_MESSAGE)) {
-        _classPrivateMethodGet(_this2, _deleteProductInfo, _deleteProductInfo2).call(_this2, target.closest('tr'));
-      }
+      case 'delete-button':
+        if (window.confirm(_constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.CONFIRM_DELETE_MESSAGE)) {
+          _classPrivateMethodGet(_this2, _deleteProductInfo, _deleteProductInfo2).call(_this2, e.target.closest('tr'));
+        }
+
+        break;
+
+      default:
     }
   });
 }
@@ -615,21 +678,21 @@ function _onSubmitProductInfo2(e) {
   });
 }
 
-function _modifyProductInfo2(selectedProduct) {
+function _modifyProductInfo2(selectedProductButton) {
   var product = {
-    name: selectedProduct.children[0].textContent,
-    price: selectedProduct.children[1].textContent,
-    quantity: selectedProduct.children[2].textContent
+    name: selectedProductButton.dataset.name,
+    price: selectedProductButton.dataset.price,
+    quantity: selectedProductButton.dataset.quantity
   };
-  (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_1__.replaceElement)(selectedProduct, (0,_templates_templates_js__WEBPACK_IMPORTED_MODULE_3__.tableInputTemplate)(product));
+  (0,_utils_dom_js__WEBPACK_IMPORTED_MODULE_1__.replaceElement)(selectedProductButton.closest('tr'), (0,_templates_templates_js__WEBPACK_IMPORTED_MODULE_3__.tableInputTemplate)(product));
 }
 
 function _confirmProductInfo2(selectedProduct) {
   var index = selectedProduct.rowIndex - 1;
   var product = {
-    name: selectedProduct.children[0].firstChild.value.trim(),
-    price: selectedProduct.children[1].firstChild.valueAsNumber,
-    quantity: selectedProduct.children[2].firstChild.valueAsNumber
+    name: selectedProduct.querySelector('#modify-name').value.trim(),
+    price: selectedProduct.querySelector('#modify-price').valueAsNumber,
+    quantity: selectedProduct.querySelector('#modify-quantity').valueAsNumber
   };
   (0,_utils_event_js__WEBPACK_IMPORTED_MODULE_2__.emit)(_constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.SECTION_CONTAINER, '@modify', {
     index: index,
@@ -1287,18 +1350,34 @@ var Coin = /** @class */ (function () {
     Coin.prototype.getCoins = function () {
         return this.coins;
     };
-    // [500, 100, 50] 큰 단위 순으로 보유할 수 있는 동전 개수중에서 랜덤 숫자를 뽑는다.
-    // 뽑은 숫자 만큼 동전을 추가한다.
-    // 나머지 금액은 10원 동전으로 바꾼다.
+    // 뽑을 수 있는 동전리스트 인덱스 범위를 찾는다. ex) 잔돈이 120원 일 경우 [10, 50, 100] 중 랜덤 인덱스
+    // 해당 동전의 카운트를 증가한다
+    // 0원이 될때까지 반복한다
+    Coin.prototype.addCoinCount = function (index) {
+        var coinCount = (0,_utils_common_js__WEBPACK_IMPORTED_MODULE_1__.getRandomNumber)(index);
+        var coin = _constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.COIN.UNIT_LIST[coinCount];
+        this.coins[coin] += 1;
+        return coin;
+    };
     Coin.prototype.makeRandomCoins = function (amount) {
-        var _this = this;
         var currentAmount = amount;
-        _constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.COIN.UNIT_LIST.forEach(function (coin) {
-            var maxCoinCount = currentAmount / coin;
-            var coinCount = coin === _constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.COIN.MIN_UNIT ? maxCoinCount : (0,_utils_common_js__WEBPACK_IMPORTED_MODULE_1__.getRandomNumber)(maxCoinCount);
-            currentAmount -= coinCount * coin;
-            _this.coins[coin] += coinCount;
-        });
+        while (currentAmount > 0) {
+            if (currentAmount >= _constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.COIN.UNIT_LIST[3]) {
+                currentAmount -= this.addCoinCount(3);
+                continue;
+            }
+            if (currentAmount >= _constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.COIN.UNIT_LIST[2]) {
+                currentAmount -= this.addCoinCount(2);
+                continue;
+            }
+            if (currentAmount >= _constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.COIN.UNIT_LIST[1]) {
+                currentAmount -= this.addCoinCount(1);
+                continue;
+            }
+            // 잔돈이 50 보다 작을 경우 전부 다 10원으로 충전한다
+            this.coins[_constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.COIN.UNIT_LIST[0]] += currentAmount / _constants_constants_js__WEBPACK_IMPORTED_MODULE_0__.COIN.UNIT_LIST[0];
+            break;
+        }
     };
     return Coin;
 }());
@@ -1432,11 +1511,11 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _css_index_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/index.css */ "./src/css/index.css");
 /* harmony import */ var _route_route_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./route/route.js */ "./src/js/route/route.js");
-/* harmony import */ var _Controller_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Controller.js */ "./src/js/Controller.js");
+/* harmony import */ var _controller_ProductManage_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./controller/ProductManage.js */ "./src/js/controller/ProductManage.js");
 
 
 
-new _Controller_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
+new _controller_ProductManage_js__WEBPACK_IMPORTED_MODULE_2__["default"]();
 
 })();
 
